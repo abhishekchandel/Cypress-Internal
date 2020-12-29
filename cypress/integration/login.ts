@@ -1,28 +1,35 @@
 /// <reference types="Cypress" />
+describe('Create Homework', function() {
+    // we can use these values to log in
+  const username = 'manasbiswaswins@gmail.com'
+  const password = 'Techie@1234'
 
-context('Startup', () => {
     beforeEach(() => {
-        cy.visit('https://driveshopsdev.app/login');
+        cy.loginByForm(username,password);
     });
 
-    it('should fill login form and redirect to dashboard', () => {
-    
-    // Fill the username
-    cy.get('[name="userName"]')
-    .type('manasbiswaswins@gmail.com')
-    .should('have.value', 'manasbiswaswins@gmail.com');
-    
-    // Fill the password
-    cy.get('[name="password"]')
-    .type('Techie@1234')
-    .should('have.value', 'Techie@1234');
-    
-    // check Remember me
-    cy.get('[role="checkbox"]').click();
+    it('should click header on dashboard', () => {
 
-    // Locate and submit the form
-    cy.get('[role="button"]').click();
-          
-    });
+        cy.get('#settingsPopup')
+        .should('exist')
+        .should('be.visible')
+        .click()
+
+    cy.get('.d-btn-sidebar-collapse')
+        .should('exist')
+        .should('be.visible')
+        .click({ multiple: true })
+
+    cy.get('#appPopup')
+        .should('exist')
+        .should('be.visible')
+        .click({ multiple: true })
+
+    cy.get('#navPopup')
+        .should('exist')
+        .should('be.visible')
+        .click({ multiple: true })
     
     });
+    
+    });  

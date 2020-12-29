@@ -23,3 +23,33 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+  
+
+Cypress.Commands.add('loginByForm', (username, password) => {
+
+    cy.visit('https://driveshopsdev.app/login');
+
+     // Fill the username
+     cy.get('[name="userName"]')
+     .type(username)
+     .should('have.value', username);
+     
+     // Fill the password
+     cy.get('[name="password"]')
+     .type(password)
+     .should('have.value', password);
+     
+     // check Remember me
+     cy.get('[role="checkbox"]').click();
+ 
+     // Locate and submit the form
+     cy.get('[role="button"]').click().wait(10000)
+     
+})
+
+
+declare namespace Cypress {
+    interface Chainable<Subject> {
+        loginByForm(username:string, password :string): Cypress.Chainable<void>;
+    }
+  }
